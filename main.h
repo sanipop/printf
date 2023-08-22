@@ -62,27 +62,23 @@ typedef struct p_dict_s
 	char *(*printer)(va_list, str_list *);
 } print_dict;
 
-/* MAIN FUNCTIONS  (0-printf.c) */
 int _printf(const char *format, ...);
 int build_str_list(str_list **, va_list, const char *);
 int add_str(str_list **, const char **, const char *, va_list);
 char *get_string(str_list *, const char *, va_list);
 char *strncopy_list(str_list *, int);
 
-/* INT PRINTER FUNCTIONS (1-num_printers.c) */
 char *p_num(va_list, str_list *);
 char *p_c(int, int *);
 char *p_base2(unsigned long int, str_list *);
 char *p_base10(unsigned long int, str_list *);
 
-/* STR PRINTER FUNCTIONS (2-str_printers.c) */
 char *p_s(va_list, str_list *);
 char *rev_string(char *);
 char *rot13(char *);
 char *p_S(char *);
 char *p_mod(va_list, str_list *);
 
-/* HELPER FUNCTIONS (3-helpers.c) */
 char *_strchr(char *, char);
 char *_strdup(char *);
 size_t _strlen(char *);
