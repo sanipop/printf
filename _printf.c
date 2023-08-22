@@ -12,10 +12,12 @@ int _printf(const char *format, ...) {
     va_list args;
     va_start(args, format);
 
-    int count = 0;  // track the characters printed
-    char hold;        // To store individual characters from format
+	int i;
+	int count = 0;
+	char hold;
+	char *str = va_arg(args, char *); 
 
-    for (int i = 0; format[i] != '\0'; i++) {
+    for (i = 0; format[i] != '\0'; i++) {
         if (format[i] == '%') {
             i++; 
             
@@ -27,7 +29,6 @@ int _printf(const char *format, ...) {
                     break;
 
                 case 's':
-                    char *str = va_arg(args, char *); 
                     while (*str != '\0') {
                         putchar(*str);
                         str++;
