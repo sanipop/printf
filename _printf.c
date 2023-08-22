@@ -112,3 +112,88 @@ int add_str(str_list **h, const char **in, const char *alte, va_list items)
 		return (-1);
 	return (_strlen(b->str));
 }
+/**
+ * get_string - gets string
+ * @f: format config
+ * @alte: alternate string (if format type is unknown)
+ * @items: argument list
+ * Return: string
+ **/
+char *get_string(str_list *f, const char *alte, va_list items)
+{
+	print_dict pd[] = {{"bdiopuxX", p_num}, {"csrRS", p_s}, {"%", p_mod}};
+	int i, j, len, arg_len, total_len;
+	char *arg = NULL, *tmp = NULL;
+
+	for (i = 0; i < 3; i++)
+		if (_strchr(pd[i].type, f->type))
+		{
+			tmp = pd[i].printer(items, f);
+			if (tmp == NULL)
+				return (NULL);
+			break;
+		}
+
+	for (i = 0; alte[i] && alte[i] != '%'; i++)
+		;
+	arg_len = i;
+	if (tmp == NULL && alte[i])
+		for (arg_len++; alte[i] != f->type; i++)
+			arg_len++;
+	len = _strlen(tmp);
+	total_len = len + arg_len;
+	arg = malloc(total_len + 1);
+	if (arg == NULL)
+		return (NULL);
+	for (i = 0; i < arg_len; i++)
+		arg[i] = alte[i];
+	for (j = 0; i < total_len; i++, j++)
+		arg[i] = tmp[j];
+	arg[i] = '\0';
+	free(tmp);
+	return (arg);
+}
+
+/**
+ * strncopy_list - copies strings in a str list onto a buffer
+ * @h: head of list
+ * @n: number of bytes to allocate to string
+ * Return: void
+ **/
+char *strncopy_list(str_list *h, int n)
+{
+	int len, width, print_spaces, i, j, k;
+	char *buf = malloc(n + 1), space = ' ';
+
+	if (buf == NULL)
+		return (NULL);
+
+	for (i = 0; h; h = h->next)
+	{
+		len = _strlen(h->str);
+		print_spaces = ~(h->minus);
+
+		if (h->has_max)
+			len = min(h->precision, len);
+		if (h->has_min)
+			width = max(h->width, len);
+		else
+			width = len;
+
+		if (h->zero && _strchr("bcdiopuxX", h->type))
+			space = '0';
+
+		for (k = i; i - k < width; print_spaces = true)
+		{
+			if (print_spaces == true)
+				for (j = i + width - len; i < j; i++, j++)
+					buf[i] = space;
+
+			for (j = 0; i - k < len; i++, j++)
+				buf[i] = h->str[j];
+		}
+	}
+	buf[i] = '\0';
+	return (buf);
+}
+
