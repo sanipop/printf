@@ -7,6 +7,16 @@
 #include <stdlib.h>
 #include <limits.h>
 
+/*CONSTANT*/
+#define AMS_F_ZERO   1
+#define AMS_F_MINUS  2
+#define AMS_F_PLUS   4
+#define AMS_F_SPACE  8
+#define AMS_S_LONG   1
+#define AMS_S_SHORT  2
+#define AMS_BUFF_SIZE 1024
+#define UNUSED(x) (void)(x)
+
 /* PRE-PROCESSOR DIRECTIVES */
 #define is_alpha(a) ((a >= 'A' && a <= 'Z') || (a >= 'a' && a <= 'z'))
 #define max(a, b) ((a) > (b) ? (a) : (b))
@@ -84,5 +94,15 @@ char *_strdup(char *);
 size_t _strlen(char *);
 void free_strlist(str_list *);
 str_list *new_str_list_node(void);
+
+/*FOR TASK1*/
+long int convert_s_n(long int num, int size);
+int write_n0(int ind, char buffer[],
+              int flags, int width, int prec,
+              int length, char padd, char extra_c);
+int write_n1(int is_negative, int ind, char buffer[],
+                 int flags, int width, int precision, int size);
+int p_i(va_list types, char buffer[],
+              int flags, int width, int precision, int size);
 
 #endif /* MAIN_H */
