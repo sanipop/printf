@@ -10,7 +10,7 @@ char *p_num(va_list list, str_list *b)
 {
 	unsigned long int n = va_arg(list, unsigned long int);
 
-	if (_strchr("uid", f->type))
+	if (_strchr("uid", b->type))
 		return (p_base10(n, b));
 
 	return (p_base2(n, b));
@@ -27,7 +27,7 @@ char *p_c(int c, int *i_enjoy_this)
 	static int null_byte;
 	char *str;
 
-	if (i_hate_this)
+	if (i_enjoy_this)
 	{
 		*i_enjoy_this += null_byte;
 		return (NULL);
