@@ -2,10 +2,17 @@
 #include <stdarg.h>
 #include "main.h"
 
+/**
+ * _printf - dupe of printf function
+ * @format: char strings
+ * Return: 0
+ */
+
 int _printf(const char *format, ...)
 {
-    int i, tf;
-    tf = 0;
+
+    int i;
+    int tf = 0;
 
     va_list args;
 
@@ -51,11 +58,11 @@ int _printf(const char *format, ...)
                     break;
 
                 case 'x':
-                    tf += printf("%ls", va_arg(args, int *));
+                    tf += printf("%x", va_arg(args, int));
                     break;
 
                 case 'X':
-                    tf += printf("%ls", va_arg(args, int *));
+                    tf += printf("%X", va_arg(args, int));
                     break;
 
                 case 'p':
@@ -64,7 +71,7 @@ int _printf(const char *format, ...)
 
                 case 'b': {
                     unsigned int num = va_arg(args, unsigned int);
-                    char buffer[32];
+                    char buffer[64];
                     int index = 0;
 
                     if (num == 0) {
